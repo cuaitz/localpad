@@ -2,8 +2,8 @@
 session_start();
 
 // Credenciais
-$USERNAME = 'admin';
-$PASSWORD = 'admin';
+$USERNAME = '';
+$PASSWORD = '';
 
 // Logout
 if (isset($_GET['logout'])) {
@@ -27,7 +27,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['login'])) {
 
 
 // Formulário de login
-if (!($_SESSION['logged_in'] ?? false)) {
+if (!($_SESSION['logged_in'] ?? false || ($USERNAME==='' && $PASSWORD===''))) {
     ?>
     <!DOCTYPE html>
     <html>

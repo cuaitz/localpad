@@ -2,6 +2,7 @@
 session_start();
 
 // Credenciais
+// Deixe duas strings vazias para ignorar o sistema de login
 $USERNAME = '';
 $PASSWORD = '';
 
@@ -233,8 +234,10 @@ $parentPath = get_parent_path($path);
             <?php foreach ($children as $child): ?>
                 <a href="<?= htmlspecialchars($child) ?>"><?= htmlspecialchars(basename($child)) ?></a>
             <?php endforeach; ?>
-
-            <a href="?logout=1" class="logout">[Logout]</a>
+            
+            <?php if (!($USERNAME==='' && $PASSWORD==='')): ?>
+                <a href="?logout=1" class="logout">[Logout]</a>
+            <?php endif; ?>
         </div>
 
         <div class="editor">

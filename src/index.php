@@ -238,11 +238,13 @@ $parentPath = get_parent_path($path);
     <div class="container">
         <div class="sidebar">
             <?php if ($parentPath !== null): ?>
-                <a href="<?= htmlspecialchars($scriptPath . ($parentPath ?: '/')) ?>">..</a>
+                <a href="<?= htmlspecialchars(rtrim($scriptPath, '/') . ($parentPath ?: '/')) ?>">..</a>
             <?php endif; ?>
 
             <?php foreach ($children as $child): ?>
-                <a href="<?= htmlspecialchars($scriptPath . $child) ?>"><?= htmlspecialchars(basename($child)) ?></a>
+                <a href="<?= htmlspecialchars(rtrim($scriptPath, '/') . '/' . ltrim($child, '/')) ?>">
+                    <?= htmlspecialchars(basename($child)) ?>
+                </a>
             <?php endforeach; ?>
             
             <?php if (!$LOGIN_DISABLED): ?>

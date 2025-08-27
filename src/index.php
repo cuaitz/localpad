@@ -8,7 +8,7 @@ $PASSWORD = 'admin';
 // Logout
 if (isset($_GET['logout'])) {
     session_destroy();
-    header('Location: /');
+    header('Location: .');
     exit;
 }
 

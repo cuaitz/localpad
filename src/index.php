@@ -4,7 +4,9 @@ session_start();
 // Credenciais
 // Deixe duas strings vazias para ignorar o sistema de login
 $USERNAME = '';
-$PASSWORD = '';
+$PASSWORD_HASH = '';
+
+$LOGIN_DISABLED = $USERNAME === '' && $PASSWORD_HASH === '';
 
 // Logout
 if (isset($_GET['logout'])) {
@@ -17,18 +19,18 @@ if (isset($_GET['logout'])) {
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['login'])) {
     $user = $_POST['username'] ?? '';
     $pass = $_POST['password'] ?? '';
-    if ($user === $USERNAME && $pass === $PASSWORD) {
+    if ($user === $USERNAME && password_verify($pass, $PASSWORD_HASH)) {
         $_SESSION['logged_in'] = true;
         header('Location: ' . $_SERVER['REQUEST_URI']);
         exit;
     } else {
-        $error = "Invalid credentials";
+        $error = "Invalid credentials.";
     }
 }
 
 
 // Formulário de login
-if (!($_SESSION['logged_in'] ?? false || ($USERNAME==='' && $PASSWORD===''))) {
+if (!($_SESSION['logged_in'] ?? false || $LOGIN_DISABLED)) {
     ?>
     <!DOCTYPE html>
     <html>
@@ -243,7 +245,7 @@ $parentPath = get_parent_path($path);
                 <a href="<?= htmlspecialchars($scriptPath . $child) ?>"><?= htmlspecialchars(basename($child)) ?></a>
             <?php endforeach; ?>
             
-            <?php if (!($USERNAME==='' && $PASSWORD==='')): ?>
+            <?php if (!$LOGIN_DISABLED): ?>
                 <a href="<?= htmlspecialchars($scriptPath) ?>?logout=1" class="logout">[Logout]</a>
             <?php endif; ?>
         </div>

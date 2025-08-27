@@ -99,7 +99,15 @@ $db->exec("CREATE TABLE IF NOT EXISTS notes (
     content TEXT
 )");
 
-$path = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
+$uriPath = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
+$scriptPath = dirname($_SERVER['SCRIPT_NAME']);
+
+if ($scriptPath !== '/' && str_starts_with($uriPath, $scriptPath)) {
+    $path = substr($uriPath, strlen($scriptPath));
+} else {
+    $path = $uriPath;
+}
+
 $path = rtrim($path, '/') ?: '/';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {

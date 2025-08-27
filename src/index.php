@@ -236,15 +236,15 @@ $parentPath = get_parent_path($path);
     <div class="container">
         <div class="sidebar">
             <?php if ($parentPath !== null): ?>
-                <a href="<?= htmlspecialchars($parentPath ?: '/') ?>">..</a>
+                <a href="<?= htmlspecialchars($scriptPath . ($parentPath ?: '/')) ?>">..</a>
             <?php endif; ?>
 
             <?php foreach ($children as $child): ?>
-                <a href="<?= htmlspecialchars($child) ?>"><?= htmlspecialchars(basename($child)) ?></a>
+                <a href="<?= htmlspecialchars($scriptPath . $child) ?>"><?= htmlspecialchars(basename($child)) ?></a>
             <?php endforeach; ?>
             
             <?php if (!($USERNAME==='' && $PASSWORD==='')): ?>
-                <a href="?logout=1" class="logout">[Logout]</a>
+                <a href="<?= htmlspecialchars($scriptPath) ?>?logout=1" class="logout">[Logout]</a>
             <?php endif; ?>
         </div>
 

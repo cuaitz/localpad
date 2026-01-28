@@ -3,8 +3,8 @@ session_start();
 
 // Credenciais
 // Deixe duas strings vazias para ignorar o sistema de login
-$USERNAME = '';
-$PASSWORD_HASH = '';
+$USERNAME = 'admin';
+$PASSWORD_HASH = '$2y$10$LytOu3XFTgj2aJowHtTIdOlW4Sow89RC/JW.TNotn5itVLNufJ5Y6';
 
 $LOGIN_DISABLED = $USERNAME === '' && $PASSWORD_HASH === '';
 
@@ -254,7 +254,7 @@ $parentPath = get_parent_path($path);
 
         <div class="editor">
             <form method="POST" id="noteForm">
-                <textarea name="content"><?= htmlspecialchars($note) ?></textarea>
+                <textarea spellcheck="false" name="content"><?= htmlspecialchars($note) ?></textarea>
             </form>
         </div>
     </div>
